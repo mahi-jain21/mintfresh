@@ -1451,6 +1451,210 @@
       font-size: 13px;
       font-weight: 400;
     }
+
+    /* ==========================================
+       FEEDBACK & TESTIMONIAL SECTION
+       ========================================== */
+    .feedback-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-top: 40px;
+    }
+
+    .feedback-item {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--muted-sage);
+      padding-top: 32px;
+    }
+
+    .feedback-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 26px;
+      line-height: 1.45;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+
+    .feedback-author {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-dark);
+    }
+
+    .feedback-company {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--accent-mid);
+      font-weight: 300;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .feedback-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+    }
+
+    /* ==========================================
+       BLOGS & JOURNAL SECTION
+       ========================================== */
+    .blogs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .blog-card {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--muted-sage);
+      padding-top: 32px;
+      transition: var(--transition-standard);
+      cursor: pointer;
+    }
+
+    .blog-card:hover {
+      border-top-color: var(--accent-dark);
+    }
+
+    .blog-meta {
+      font-family: var(--font-body);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-mid);
+      margin-bottom: 16px;
+    }
+
+    .blog-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      line-height: 1.25;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      transition: var(--transition-hover);
+    }
+
+    .blog-card:hover .blog-title {
+      color: var(--accent-dark);
+      font-style: italic;
+    }
+
+    .blog-desc {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-body);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .blog-link {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .blog-link:hover {
+      color: var(--accent-mid);
+    }
+
+    @media (max-width: 992px) {
+      .blogs-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .blogs-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+    }
+
+    /* ==========================================
+       MULTI-COLUMN FOOTER & QUICK LINKS
+       ========================================== */
+    .footer-columns {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr 0.9fr 0.95fr 1.05fr;
+      gap: 48px;
+      margin-bottom: 64px;
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 24px;
+    }
+
+    .footer-col-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-col-link {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .footer-col-link:hover {
+      color: var(--white);
+    }
+
+    .footer-col-text {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 992px) {
+      .footer-columns {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+      }
+      .footer-col:first-child {
+        grid-column: span 3;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .footer-columns {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .footer-col:first-child {
+        grid-column: span 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1887,6 +2091,59 @@
     </div>
   </section>
 
+  <!-- ==========================================
+       FEEDBACK / CLIENT PERSPECTIVES SECTION
+       ========================================== -->
+  <section class="feedback" id="feedback">
+    <div class="container reveal">
+      <span class="eyebrow">— 005 Voices</span>
+      <h2 class="services-title" style="margin-bottom: 60px;">Client perspectives.</h2>
+      
+      <div class="feedback-grid">
+        <div class="feedback-item">
+          <p class="feedback-quote">"The engineering rigor MintFresh brought to our headless storefront completely transformed our brand’s digital authority and checkout speed."</p>
+          <span class="feedback-author">Arthur Vance</span>
+          <span class="feedback-company">VP of Product, Nova Athletics</span>
+        </div>
+        <div class="feedback-item">
+          <p class="feedback-quote">"Restraint is difficult. MintFresh understands how to let a premium experience breathe while achieving extreme performance numbers."</p>
+          <span class="feedback-author">Clara Sterling</span>
+          <span class="feedback-company">Director of Design, Aura Resort</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       BLOGS / JOURNAL SECTION
+       ========================================== -->
+  <section class="blogs" id="blogs">
+    <div class="container reveal">
+      <span class="eyebrow">— 006 Journal</span>
+      <h2 class="services-title" style="margin-bottom: 60px;">Selected writings.</h2>
+      
+      <div class="blogs-grid">
+        <article class="blog-card" onclick="openModal('Blog: The Cost of Bloat')">
+          <span class="blog-meta">Performance · June 2026</span>
+          <h3 class="blog-title">The Cost of Bloat</h3>
+          <p class="blog-desc">An examination of performance velocity and why standard Javascript frameworks fail high-end digital experiences.</p>
+          <span class="blog-link">Read Entry &rarr;</span>
+        </article>
+        <article class="blog-card" onclick="openModal('Blog: The Power of Space')">
+          <span class="blog-meta">Aesthetics · May 2026</span>
+          <h3 class="blog-title">The Power of Space</h3>
+          <p class="blog-desc">Designing interfaces that whisper. How quiet layouts and typographic restraint build long-term digital authority.</p>
+          <span class="blog-link">Read Entry &rarr;</span>
+        </article>
+        <article class="blog-card" onclick="openModal('Blog: Code as Architecture')">
+          <span class="blog-meta">Architecture · April 2026</span>
+          <h3 class="blog-title">Code as Architecture</h3>
+          <p class="blog-desc">Moving away from standard templates. Authoring bespoke, semantic structures that outlast current web trends.</p>
+          <span class="blog-link">Read Entry &rarr;</span>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <!-- ==========================================
        CTA / LET'S TALK SECTION
@@ -1899,40 +2156,75 @@
     </div>
   </section>
 
-
   <!-- ==========================================
        FOOTER
        ========================================== -->
   <footer>
     <div class="container">
-      <hr class="footer-divider">
+      <hr class="footer-divider" style="margin-bottom: 64px;">
       
-      <div class="footer-grid">
-        <!-- Logo -->
-        <a href="#" class="footer-logo" aria-label="MintFresh Home">
-          <svg class="logo-leaf" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: brightness(0) invert(1);">
-            <polygon points="50,15 35,35 50,45" fill="url(#logo-g1)"/>
-            <polygon points="50,15 65,35 50,45" fill="url(#logo-g2)"/>
-            <polygon points="35,35 50,45 25,55" fill="url(#logo-g3)"/>
-            <polygon points="65,35 50,45 75,55" fill="url(#logo-g4)"/>
-            <polygon points="50,45 25,55 50,75" fill="url(#logo-g1)"/>
-            <polygon points="50,45 75,55 50,75" fill="url(#logo-g2)"/>
-            <path d="M50,75 L50,90" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
-          <span class="logo-mint" style="margin-left: 8px;">Mint</span><span class="logo-fresh">Fresh</span>
-        </a>
-
-        <!-- Copyright -->
-        <div class="footer-copyright">
-          &copy; 2025 MintFresh. All rights reserved.
+      <!-- Multi-column footer layout (Quick Links) -->
+      <div class="footer-columns">
+        <div class="footer-col">
+          <a href="#" class="footer-logo" aria-label="MintFresh Home" style="margin-bottom: 24px;">
+            <svg class="logo-leaf" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: brightness(0) invert(1);">
+              <polygon points="50,15 35,35 50,45" fill="url(#logo-g1)"/>
+              <polygon points="50,15 65,35 50,45" fill="url(#logo-g2)"/>
+              <polygon points="35,35 50,45 25,55" fill="url(#logo-g3)"/>
+              <polygon points="65,35 50,45 75,55" fill="url(#logo-g4)"/>
+              <polygon points="50,45 25,55 50,75" fill="url(#logo-g1)"/>
+              <polygon points="50,45 75,55 50,75" fill="url(#logo-g2)"/>
+              <path d="M50,75 L50,90" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            <span class="logo-mint" style="margin-left: 8px;">Mint</span><span class="logo-fresh">Fresh</span>
+          </a>
+          <p class="footer-col-text" style="margin-bottom: 20px;">Bespoke digital design &amp; engineering. Building enduring web products since 2024.</p>
+          <div class="footer-copyright">
+            &copy; 2025 MintFresh. All rights reserved.
+          </div>
         </div>
 
-        <!-- Socials -->
-        <ul class="footer-socials">
-          <li><a href="#" class="footer-social-link" target="_blank" rel="noopener">IG</a></li>
-          <li><a href="#" class="footer-social-link" target="_blank" rel="noopener">LI</a></li>
-          <li><a href="#" class="footer-social-link" target="_blank" rel="noopener">X</a></li>
-        </ul>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Studio</h4>
+          <ul class="footer-col-links">
+            <li><a href="#about" class="footer-col-link">About Profile</a></li>
+            <li><a href="#portfolio" class="footer-col-link">Selected Work</a></li>
+            <li><a href="#why-choose-us" class="footer-col-link">Methodology</a></li>
+            <li><a href="#blogs" class="footer-col-link">Journal</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Capabilities</h4>
+          <ul class="footer-col-links">
+            <li><a href="#services" class="footer-col-link">Custom Websites</a></li>
+            <li><a href="#services" class="footer-col-link">B2B Integration</a></li>
+            <li><a href="#services" class="footer-col-link">Growth Software</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Journal</h4>
+          <ul class="footer-col-links">
+            <li><a href="#blogs" class="footer-col-link">The Cost of Bloat</a></li>
+            <li><a href="#blogs" class="footer-col-link">The Power of Space</a></li>
+            <li><a href="#blogs" class="footer-col-link">Code as Architecture</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Inquiries</h4>
+          <ul class="footer-col-links" style="margin-bottom: 24px;">
+            <li><a href="#" class="footer-col-link open-modal-btn">Initiate Project &rarr;</a></li>
+            <li><span class="footer-col-link">hello@mintfresh.studio</span></li>
+          </ul>
+          <h4 class="footer-col-title" style="margin-bottom: 16px;">Social</h4>
+          <ul class="footer-socials" style="gap: 16px;">
+            <li><a href="#" class="footer-social-link" target="_blank" rel="noopener">IG</a></li>
+            <li><a href="#" class="footer-social-link" target="_blank" rel="noopener">LI</a></li>
+            <li><a href="#" class="footer-social-link" target="_blank" rel="noopener">X</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </footer>

@@ -16,7 +16,7 @@
   <!-- Google Fonts: Cormorant Garamond (editorial/literary), DM Sans (clean/invisible UI text) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================
@@ -709,398 +709,480 @@
     }
 
     /* ==========================================
-       PORTFOLIO SECTION (Curated Editorial layouts)
+       WORK SECTION (Editorial Selected Work)
        ========================================== */
-    .portfolio-title-box {
+    .work-section {
+      padding: 120px 0;
+      background-color: var(--bg-primary);
+      position: relative;
+    }
+
+    .work-section .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
       margin-bottom: 80px;
     }
 
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 72px 48px;
+    .work-section .header-text {
+      max-width: 600px;
     }
 
-    .portfolio-item {
+    .work-section .eyebrow {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--accent-mid);
+      display: block;
+      margin-bottom: 24px;
+    }
+
+    .work-section .header-title {
+      font-family: var(--font-display);
+      font-size: 58px;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      white-space: pre-line;
+    }
+
+    .work-section .header-subtitle {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-body);
+      line-height: 1.8;
+    }
+
+    .work-section .project-counter {
+      font-family: var(--font-body);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent-mid);
+      font-weight: 500;
+      padding-bottom: 10px;
+    }
+
+    /* Layout Asymmetry */
+    .work-grid {
       display: flex;
       flex-direction: column;
+      gap: 80px;
+    }
+
+    .work-row {
+      display: grid;
+      gap: 48px;
+    }
+
+    .work-row.row-1 {
+      grid-template-columns: 1fr;
+    }
+
+    .work-row.row-2 {
+      grid-template-columns: 1.1fr 0.9fr; /* 55% / 45% */
+    }
+
+    .work-row.row-3 {
+      grid-template-columns: 2fr 1fr 1fr; /* 50% / 25% / 25% */
+    }
+
+    .work-row.row-4 {
+      grid-template-columns: 1fr;
+    }
+
+    /* Card Styling */
+    .work-card {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--white);
+      border: 1px solid var(--muted-sage);
+      overflow: hidden;
+      transition: border-color 0.4s ease;
+    }
+
+    .work-card:hover {
+      border-color: var(--accent-mid);
+    }
+
+    /* Iframe Previews */
+    .preview-clip {
       position: relative;
+      width: 100%;
+      height: 320px; /* Default height */
+      overflow: hidden;
+      background: #E4F4EC;
+      border-bottom: 1px solid var(--muted-sage);
+    }
+
+    /* Custom height for Row 2 cards to give them different heights */
+    .work-row.row-2 .work-card:nth-child(1) .preview-clip {
+      height: 380px;
+    }
+    .work-row.row-2 .work-card:nth-child(2) .preview-clip {
+      height: 320px;
+    }
+
+    /* Row 1 Hero preview height */
+    .work-row.row-1 .preview-clip {
+      height: 480px;
+      --scale-factor: 0.30;
+    }
+
+    .preview-scaler {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(100% / var(--scale-factor, 0.265));
+      height: calc(100% / var(--scale-factor, 0.265));
+      transform: scale(var(--scale-factor, 0.265));
+      transform-origin: top left;
+    }
+
+    .preview-scaler iframe {
+      width: 100% !important;
+      height: 100% !important;
+      pointer-events: none;
+      border: none;
+      display: block;
+    }
+
+    /* Hover Overlay */
+    .preview-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: rgba(10, 20, 14, 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.4s ease;
       cursor: pointer;
     }
 
-    .portfolio-item.full-width {
-      grid-column: span 2;
+    .preview-overlay .overlay-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 32px;
+      color: var(--white);
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Visual container frame with borders */
-    .portfolio-visual {
-      width: 100%;
-      height: 480px;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--muted-sage);
-      background-color: #0A0D0B;
+    .preview-overlay .overlay-arrow {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      font-family: var(--font-body);
+      font-size: 24px;
+      color: var(--white);
+      opacity: 0;
+      transform: translate(-10px, 10px);
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .portfolio-item.full-width .portfolio-visual {
-      height: 540px;
+    .work-card:hover .preview-overlay {
+      background-color: rgba(10, 20, 14, 0.52);
     }
 
-    .portfolio-placeholder {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .work-card:hover .preview-overlay .overlay-title {
+      opacity: 1;
+      transform: scale(1.04);
+    }
+
+    .work-card:hover .preview-overlay .overlay-arrow {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    /* Hero Card Specific Overlay */
+    .work-card.hero-card .preview-overlay {
+      justify-content: flex-start;
+      align-items: flex-end;
       padding: 40px;
     }
 
-    /* matte brand gradient backgrounds */
-    .project-1-bg { background: linear-gradient(135deg, #101914 0%, #0A0D0B 100%); }
-    .project-2-bg { background: linear-gradient(135deg, #0C121A 0%, #06090D 100%); }
-    .project-3-bg { background: linear-gradient(135deg, #1A1C1A 0%, #0D0E0D 100%); }
-    .project-4-bg { background: linear-gradient(135deg, #0F1A14 0%, #0A0D0B 100%); }
+    .work-card.hero-card .preview-overlay .overlay-title {
+      font-size: 48px;
+      text-align: left;
+    }
 
-    /* ===================================================
-       HIGH-FIDELITY CSS INTERFACE MOCKUPS (NO VACANT BLOCKS)
-       =================================================== */
-    .mockup-frame {
-      width: 100%;
-      height: 100%;
-      border-radius: 8px;
-      background-color: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    /* Bottom Panel Styling */
+    .work-card .card-bottom-panel {
+      padding: 32px;
+      background-color: var(--white);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-      position: relative;
-      transition: var(--transition-standard);
-    }
-
-    /* Browser Header bar */
-    .mockup-header {
-      height: 36px;
-      background-color: rgba(255, 255, 255, 0.02);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-      gap: 6px;
-    }
-
-    .mockup-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.25);
-    }
-
-    .mockup-search {
-      width: 90px;
-      height: 8px;
-      background-color: rgba(255, 255, 255, 0.05);
-      border-radius: 4px;
-      margin-left: 12px;
-    }
-
-    /* Mockup Inner Body */
-    .mockup-body {
-      flex: 1;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    /* Mockup 1 (PeakForce Fitness Dashboard) */
-    .mockup-gym-title {
-      font-family: var(--font-display);
-      font-size: 16px;
-      color: var(--white);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-      opacity: 0.9;
-    }
-
-    .mockup-gym-sub {
-      font-family: var(--font-body);
-      font-size: 9px;
-      color: var(--muted-sage);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      margin-bottom: 16px;
-    }
-
-    .mockup-gym-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: auto;
-    }
-
-    .mockup-gym-stat-box {
-      border: 1px solid rgba(255,255,255,0.06);
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.01);
-    }
-
-    .mockup-gym-stat-label {
-      font-family: var(--font-body);
-      font-size: 8px;
-      color: rgba(255, 255, 255, 0.4);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .mockup-gym-stat-val {
-      font-family: var(--font-display);
-      font-size: 16px;
-      color: var(--white);
-      margin-top: 4px;
-    }
-
-    .mockup-gym-dial {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .mockup-dial-svg {
-      width: 64px;
-      height: 64px;
-    }
-
-    /* Mockup 2 (Aura Resort Booking) */
-    .mockup-hotel-title {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 20px;
-      color: var(--white);
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .mockup-hotel-rooms {
-      display: flex;
       gap: 16px;
-      justify-content: center;
+      flex: 1;
     }
 
-    .mockup-hotel-room-card {
-      width: 72px;
-      height: 90px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background-color: rgba(255, 255, 255, 0.02);
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .mockup-room-name {
+    .work-card .card-category {
       font-family: var(--font-body);
-      font-size: 8px;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .mockup-room-price {
-      font-family: var(--font-display);
-      font-size: 11px;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
       color: var(--accent-mid);
     }
 
-    .mockup-hotel-bar {
-      margin-top: auto;
-      height: 24px;
-      border: 1px solid rgba(255,255,255,0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-body);
-      font-size: 8px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    /* Mockup 3 (Le Sel Bistro Menu) */
-    .mockup-rest-title {
+    .work-card .card-project-name {
       font-family: var(--font-display);
-      font-size: 14px;
-      text-align: center;
-      color: var(--white);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.2;
     }
 
-    .mockup-rest-menu {
+    .work-card .card-description {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: #4A6A58; /* Muted typography as requested */
+      line-height: 1.85;
+      font-weight: 300;
+    }
+
+    .work-card .card-tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .work-card .tech-tag {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--accent-mid);
+      border: 1px solid var(--muted-sage);
+      padding: 3px 10px;
+      border-radius: 20px;
+      line-height: 1;
+      transition: border-color 0.4s ease;
+    }
+
+    .work-card:hover .tech-tag {
+      border-color: var(--accent-mid);
+    }
+
+    .work-card .card-cta {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(26, 61, 43, 0.6); /* muted default state */
+      align-self: flex-start;
+      position: relative;
+      padding-bottom: 4px;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.4s ease;
+      cursor: pointer;
+    }
+
+    .work-card .card-cta::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--accent-dark);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .work-card:hover .card-cta {
+      color: var(--accent-dark); /* vivid active color on hover */
+    }
+
+    .work-card:hover .card-cta::after {
+      transform: scaleX(1);
+    }
+
+    /* Coming Soon Card */
+    .coming-soon-card {
+      width: 100%;
+      min-height: 200px;
+      background-color: var(--accent-dark);
+      border: 1px solid var(--muted-sage);
+      position: relative;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      padding: 48px;
+      text-align: center;
+      color: var(--white);
     }
 
-    .mockup-menu-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
-      padding-bottom: 4px;
-    }
-
-    .mockup-menu-name {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.85);
-    }
-
-    .mockup-menu-price {
+    .coming-soon-card .cs-label {
+      position: absolute;
+      top: 24px;
+      left: 24px;
       font-family: var(--font-body);
       font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
       color: var(--muted-sage);
     }
 
-    /* Mockup 4 (Nova Athletics Product Card) */
-    .mockup-shop-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .mockup-shop-logo {
-      font-family: var(--font-body);
-      font-size: 9px;
-      letter-spacing: 0.1em;
-      color: var(--white);
-      text-transform: uppercase;
-    }
-
-    .mockup-shop-bag {
-      width: 12px;
-      height: 12px;
-      border: 1px solid rgba(255,255,255,0.4);
-    }
-
-    .mockup-shop-product-box {
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background-color: rgba(255, 255, 255, 0.01);
-      padding: 16px;
+    .coming-soon-card .cs-content {
       display: flex;
       flex-direction: column;
-      flex: 1;
+      align-items: center;
+      gap: 16px;
     }
 
-    .mockup-shop-prod-title {
+    .coming-soon-card .cs-title {
       font-family: var(--font-display);
-      font-size: 18px;
+      font-style: italic;
+      font-size: 42px;
+      font-weight: 400;
       color: var(--white);
       line-height: 1.2;
     }
 
-    .mockup-shop-prod-price {
+    .coming-soon-card .cs-subtitle {
       font-family: var(--font-body);
-      font-size: 11px;
+      font-size: 16px;
       color: var(--muted-sage);
-      margin-top: 6px;
+      font-weight: 300;
     }
 
-    .mockup-shop-sizes {
+    .coming-soon-card .cs-breathing-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--accent-mid);
+      margin-top: 8px;
+      animation: cs-pulse 3.5s infinite ease-in-out;
+    }
+
+    @keyframes cs-pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.12);
+        opacity: 1;
+        background-color: var(--muted-sage);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+    }
+
+    /* Section Footer */
+    .work-section-footer {
+      margin-top: 80px;
       display: flex;
-      gap: 8px;
-      margin-top: auto;
-      font-family: var(--font-body);
-      font-size: 8px;
-      color: rgba(255, 255, 255, 0.4);
-    }
-
-    .mockup-shop-sizes span {
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 4px 6px;
-    }
-
-    .mockup-shop-sizes span.active {
-      color: var(--white);
-      border-color: var(--white);
-    }
-
-    /* Portfolio Hover Overlay */
-    .portfolio-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(12, 15, 13, 0.93);
-      display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: center;
+      width: 100%;
     }
 
-    .portfolio-item:hover .portfolio-overlay {
-      opacity: 1;
+    .work-section-footer .footer-hr {
+      border: none;
+      border-top: 1px solid var(--muted-sage);
+      width: 100%;
+      margin-bottom: 40px;
     }
 
-    .portfolio-item:hover .mockup-frame {
-      transform: translateY(-6px);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .portfolio-view-text {
+    .work-section-footer .footer-note {
       font-family: var(--font-body);
       font-size: 13px;
-      font-weight: 500;
-      color: var(--white);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      color: #5A7A6A;
+      margin-bottom: 16px;
+      font-weight: 300;
     }
 
-    .portfolio-meta {
-      margin-top: 24px;
-    }
-
-    .portfolio-cat {
-      font-family: var(--font-body);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--accent-mid);
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .portfolio-name {
+    .work-section-footer .footer-start-link {
       font-family: var(--font-display);
+      font-style: italic;
       font-size: 32px;
-      color: var(--text-primary);
+      color: var(--accent-dark);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      position: relative;
+      display: inline-block;
+    }
+
+    .work-section-footer .footer-start-link::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--accent-dark);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .work-section-footer .footer-start-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* Reveal Scroll Animations */
+    .reveal-work {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-work.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .coming-soon-card.reveal-work {
+      transform: none !important;
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-work {
+        transform: none !important;
+        transition-duration: 0.1s !important;
+      }
+    }
+
+    /* Media Queries for Grid Stacking and Responsiveness */
+    @media (max-width: 992px) {
+      .work-row.row-2 {
+        grid-template-columns: 1fr;
+      }
+      .work-row.row-3 {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     @media (max-width: 768px) {
-      .portfolio-grid {
+      .work-row.row-3 {
         grid-template-columns: 1fr;
-        gap: 56px;
       }
-      .portfolio-item.full-width {
-        grid-column: span 1;
+      .work-grid {
+        gap: 48px;
       }
-      .portfolio-visual, .portfolio-item.full-width .portfolio-visual {
-        height: 340px;
+      .work-row {
+        gap: 48px;
       }
-      .portfolio-name {
-        font-size: 26px;
+      .work-section .header-title {
+        font-size: 42px;
+      }
+      .work-card .preview-clip {
+        height: 240px; /* proportional height on mobile */
+        --scale-factor: 0.32;
       }
     }
 
@@ -1856,189 +1938,256 @@
 
 
   <!-- ==========================================
-       PORTFOLIO SECTION (With custom detailed HTML/CSS web mockups)
+       SELECTED WORK SHOWCASE SECTION
        ========================================== -->
-  <section class="portfolio" id="portfolio">
-    <div class="container reveal">
+  <section class="work-section" id="portfolio">
+    <div class="container">
       
-      <div class="portfolio-title-box">
-        <span class="eyebrow">— 003 Work</span>
-        <h2 class="services-title">Selected Work</h2>
+      <header class="section-header reveal-work">
+        <div class="header-text">
+          <span class="eyebrow">— Selected Work</span>
+          <h2 class="header-title">Work that speaks
+before you do.</h2>
+          <p class="header-subtitle">A curated selection of digital experiences built for businesses that understand the value of getting it right.</p>
+        </div>
+        <div class="project-counter">06 Projects</div>
+      </header>
+
+      <div class="work-grid">
+        <!-- Row 1: Project 06 (Aurelia House) — Hero Treatment -->
+        <div class="work-row row-1">
+          <div class="work-card hero-card reveal-work">
+            <div class="preview-clip" style="height: 480px; --scale-factor: 0.30;">
+              <div class="preview-scaler">
+                <iframe
+                  src="https://raunaksharmaq64.github.io/hotels-sample/"
+                  scrolling="no"
+                  loading="lazy"
+                  tabindex="-1"
+                  aria-hidden="true">
+                </iframe>
+              </div>
+              <a href="https://raunaksharmaq64.github.io/hotels-sample/" target="_blank" rel="noopener" class="preview-overlay">
+                <div class="overlay-content">
+                  <h4 class="overlay-title">Aurelia House</h4>
+                  <span class="overlay-arrow">↗</span>
+                </div>
+              </a>
+            </div>
+            <div class="card-bottom-panel">
+              <span class="card-category">Hospitality · Luxury · Editorial</span>
+              <h3 class="card-project-name">Aurelia House</h3>
+              <p class="card-description">Aurelia House is MintFresh's most ambitious showcase — a cinematic luxury hotel experience that reads like an architectural editorial, with blueprint-style room layouts, scroll-driven philosophy sections, a Chef's Table gastronomy narrative, spa wellness storytelling, and an immersive lookbook gallery. This is not a hotel website — it is proof that MintFresh can compete with the world's best digital studios.</p>
+              <div class="card-tech-list">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">GSAP</span>
+                <span class="tech-tag">Cinematic UI</span>
+                <span class="tech-tag">Editorial Design</span>
+                <span class="tech-tag">3D Scroll</span>
+              </div>
+              <a href="https://raunaksharmaq64.github.io/hotels-sample/" target="_blank" rel="noopener" class="card-cta">Live Demo &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Project 02 (VELORÉ) + Project 04 (The Prandium Lux) — 55% / 45% Split -->
+        <div class="work-row row-2">
+          <!-- Project 02 (VELORÉ) -->
+          <div class="work-card reveal-work">
+            <div class="preview-clip" style="--scale-factor: 0.265;">
+              <div class="preview-scaler">
+                <iframe
+                  src="https://raunaksharmaq64.github.io/cosmetic-E-commers/"
+                  scrolling="no"
+                  loading="lazy"
+                  tabindex="-1"
+                  aria-hidden="true">
+                </iframe>
+              </div>
+              <a href="https://raunaksharmaq64.github.io/cosmetic-E-commers/" target="_blank" rel="noopener" class="preview-overlay">
+                <div class="overlay-content">
+                  <h4 class="overlay-title">VELORÉ</h4>
+                  <span class="overlay-arrow">↗</span>
+                </div>
+              </a>
+            </div>
+            <div class="card-bottom-panel">
+              <span class="card-category">Beauty · Luxury E-Commerce</span>
+              <h3 class="card-project-name">VELORÉ</h3>
+              <p class="card-description">VELORÉ is a cinematic luxury skincare brand experience — built with 3D animated product reveals, scroll-driven storytelling, and a philosophy-first layout that positions the brand alongside Aesop and La Mer. Every interaction is deliberate: from the percentage preloader to the botanical ingredient philosophy, this site sells a feeling before it sells a product.</p>
+              <div class="card-tech-list">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">Three.js</span>
+                <span class="tech-tag">GSAP</span>
+                <span class="tech-tag">3D Animation</span>
+                <span class="tech-tag">E-Commerce</span>
+              </div>
+              <a href="https://raunaksharmaq64.github.io/cosmetic-E-commers/" target="_blank" rel="noopener" class="card-cta">Live Demo &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Project 04 (The Prandium Lux) -->
+          <div class="work-card reveal-work">
+            <div class="preview-clip" style="--scale-factor: 0.265;">
+              <div class="preview-scaler">
+                <iframe
+                  src="https://raunaksharmaq64.github.io/The-Prandium-Lux/"
+                  scrolling="no"
+                  loading="lazy"
+                  tabindex="-1"
+                  aria-hidden="true">
+                </iframe>
+              </div>
+              <a href="https://raunaksharmaq64.github.io/The-Prandium-Lux/" target="_blank" rel="noopener" class="preview-overlay">
+                <div class="overlay-content">
+                  <h4 class="overlay-title">The Prandium Lux</h4>
+                  <span class="overlay-arrow">↗</span>
+                </div>
+              </a>
+            </div>
+            <div class="card-bottom-panel">
+              <span class="card-category">Hospitality · Events · Fine Dining</span>
+              <h3 class="card-project-name">The Prandium Lux</h3>
+              <p class="card-description">The Prandium Lux is a premium venue and celebration destination in Bhopal — the website captures its pool deck grandeur, multi-cuisine dining, and event versatility through an elegantly structured layout with filterable gallery, event showcase, and direct WhatsApp/call booking integration. Built to convert both wedding inquiries and fine dining reservations with equal confidence.</p>
+              <div class="card-tech-list">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Gallery Filter</span>
+                <span class="tech-tag">Maps Integration</span>
+                <span class="tech-tag">WhatsApp API</span>
+              </div>
+              <a href="https://raunaksharmaq64.github.io/The-Prandium-Lux/" target="_blank" rel="noopener" class="card-cta">Live Demo &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Project 01 (Fashion) + Project 03 (Food Cafe) + Project 05 (Gym) — 50% / 25% / 25% -->
+        <div class="work-row row-3">
+          <!-- Project 01 (Number One Fashion Point) -->
+          <div class="work-card reveal-work">
+            <div class="preview-clip" style="--scale-factor: 0.265;">
+              <div class="preview-scaler">
+                <iframe
+                  src="https://raunaksharmaq64.github.io/Number-one-fashion-/"
+                  scrolling="no"
+                  loading="lazy"
+                  tabindex="-1"
+                  aria-hidden="true">
+                </iframe>
+              </div>
+              <a href="https://raunaksharmaq64.github.io/Number-one-fashion-/" target="_blank" rel="noopener" class="preview-overlay">
+                <div class="overlay-content">
+                  <h4 class="overlay-title">Number One Fashion Point</h4>
+                  <span class="overlay-arrow">↗</span>
+                </div>
+              </a>
+            </div>
+            <div class="card-bottom-panel">
+              <span class="card-category">Fashion · E-Commerce</span>
+              <h3 class="card-project-name">Number One Fashion Point</h3>
+              <p class="card-description">A full-stack streetwear storefront built for a real Bhopal-based fashion brand — complete with live product catalog, WhatsApp-integrated checkout, and pan-India delivery logic. Designed to convert browsers into buyers within seconds, with bold typography, category filters, and a frictionless mobile-first shopping flow.</p>
+              <div class="card-tech-list">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">WhatsApp API</span>
+                <span class="tech-tag">Responsive Design</span>
+              </div>
+              <a href="https://raunaksharmaq64.github.io/Number-one-fashion-/" target="_blank" rel="noopener" class="card-cta">Live Demo &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Project 03 (Flavour Symphony) -->
+          <div class="work-card reveal-work">
+            <div class="preview-clip" style="--scale-factor: 0.265;">
+              <div class="preview-scaler">
+                <iframe
+                  src="https://raunaksharmaq64.github.io/food-cafe/"
+                  scrolling="no"
+                  loading="lazy"
+                  tabindex="-1"
+                  aria-hidden="true">
+                </iframe>
+              </div>
+              <a href="https://raunaksharmaq64.github.io/food-cafe/" target="_blank" rel="noopener" class="preview-overlay">
+                <div class="overlay-content">
+                  <h4 class="overlay-title">Flavour Symphony</h4>
+                  <span class="overlay-arrow">↗</span>
+                </div>
+              </a>
+            </div>
+            <div class="card-bottom-panel">
+              <span class="card-category">Food & Beverage · Restaurant</span>
+              <h3 class="card-project-name">Flavour Symphony</h3>
+              <p class="card-description">Flavour Symphony is a multi-cuisine restaurant website built around emotional storytelling — anchored in literary food quotes, a live kitchen narrative, and animated counters that build social proof before a single dish is seen. The site functions as a complete digital dining experience: from the chef's signature dish showcase to a live order-intent dashboard and table reservation flow.</p>
+              <div class="card-tech-list">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Animation</span>
+                <span class="tech-tag">Responsive</span>
+              </div>
+              <a href="https://raunaksharmaq64.github.io/food-cafe/" target="_blank" rel="noopener" class="card-cta">Live Demo &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Project 05 (FitCore) -->
+          <div class="work-card reveal-work">
+            <div class="preview-clip" style="--scale-factor: 0.265;">
+              <div class="preview-scaler">
+                <iframe
+                  src="https://raunaksharmaq64.github.io/GYM_portfolio-/"
+                  scrolling="no"
+                  loading="lazy"
+                  tabindex="-1"
+                  aria-hidden="true">
+                </iframe>
+              </div>
+              <a href="https://raunaksharmaq64.github.io/GYM_portfolio-/" target="_blank" rel="noopener" class="preview-overlay">
+                <div class="overlay-content">
+                  <h4 class="overlay-title">FitCore</h4>
+                  <span class="overlay-arrow">↗</span>
+                </div>
+              </a>
+            </div>
+            <div class="card-bottom-panel">
+              <span class="card-category">Fitness · Membership Platform</span>
+              <h3 class="card-project-name">FitCore</h3>
+              <p class="card-description">FitCore is a full-featured premium fitness brand website — built with bold dark-mode energy, animated transformation counters, a trainer showcase, tiered membership pricing, and a weekly class schedule system. Every design decision speaks to the brand's audience: high-performance, results-driven, with a visual weight that commands action.</p>
+              <div class="card-tech-list">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Dark UI</span>
+                <span class="tech-tag">Responsive</span>
+                <span class="tech-tag">Membership UI</span>
+              </div>
+              <a href="https://raunaksharmaq64.github.io/GYM_portfolio-/" target="_blank" rel="noopener" class="card-cta">Live Demo &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 4: Project 07 (Coming Soon) — Full Width -->
+        <div class="work-row row-4">
+          <div class="coming-soon-card reveal-work">
+            <div class="cs-label">In Development</div>
+            <div class="cs-content">
+              <h3 class="cs-title">Something new is being crafted.</h3>
+              <p class="cs-subtitle">A new project is currently underway. Check back soon.</p>
+              <div class="cs-breathing-dot"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Curated Grid Layout: 1 Full, 2 Side-by-side, 1 Full -->
-      <div class="portfolio-grid">
-        
-        <!-- Project 1 (Full Width) -->
-        <div class="portfolio-item full-width" onclick="openModal('PeakForce Fitness Dashboard')">
-          <div class="portfolio-visual">
-            <div class="portfolio-placeholder project-1-bg">
-              <div class="mockup-frame">
-                <div class="mockup-header">
-                  <span class="mockup-dot"></span>
-                  <span class="mockup-dot"></span>
-                  <span class="mockup-dot"></span>
-                  <span class="mockup-search"></span>
-                </div>
-                <div class="mockup-body">
-                  <span class="mockup-gym-title">PeakForce Athletic Club</span>
-                  <span class="mockup-gym-sub">High-Performance Optimization</span>
-                  
-                  <div class="mockup-gym-dial">
-                    <!-- Circular progress svg -->
-                    <svg class="mockup-dial-svg" viewBox="0 0 36 36">
-                      <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
-                      <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--accent-mid)" stroke-width="2" stroke-dasharray="82, 100"/>
-                      <text x="18" y="20.35" fill="#fff" font-family="var(--font-body)" font-size="7.5" font-weight="700" text-anchor="middle">82%</text>
-                    </svg>
-                  </div>
-
-                  <div class="mockup-gym-metrics">
-                    <div class="mockup-gym-stat-box">
-                      <span class="mockup-gym-stat-label">Active Users</span>
-                      <div class="mockup-gym-stat-val">1,240</div>
-                    </div>
-                    <div class="mockup-gym-stat-box">
-                      <span class="mockup-gym-stat-label">Capacity</span>
-                      <div class="mockup-gym-stat-val">94%</div>
-                    </div>
-                    <div class="mockup-gym-stat-box">
-                      <span class="mockup-gym-stat-label">Load Target</span>
-                      <div class="mockup-gym-stat-val">1.2s</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="portfolio-overlay">
-              <span class="portfolio-view-text">View Case Study &rarr;</span>
-            </div>
-          </div>
-          <div class="portfolio-meta">
-            <span class="portfolio-cat">Gym Experience &amp; Portal</span>
-            <h3 class="portfolio-name">PeakForce Fitness</h3>
-          </div>
-        </div>
-
-        <!-- Project 2 (Side by Side) -->
-        <div class="portfolio-item" onclick="openModal('Aura Resort Sanctuary')">
-          <div class="portfolio-visual">
-            <div class="portfolio-placeholder project-2-bg">
-              <div class="mockup-frame">
-                <div class="mockup-header">
-                  <span class="mockup-dot"></span>
-                  <span class="mockup-dot"></span>
-                  <span class="mockup-dot"></span>
-                  <span class="mockup-search"></span>
-                </div>
-                <div class="mockup-body">
-                  <span class="mockup-hotel-title">Aura Resort</span>
-                  <div class="mockup-hotel-rooms">
-                    <div class="mockup-hotel-room-card">
-                      <span class="mockup-room-name">Ocean suite</span>
-                      <span class="mockup-room-price">$450</span>
-                    </div>
-                    <div class="mockup-hotel-room-card">
-                      <span class="mockup-room-name">Beach villa</span>
-                      <span class="mockup-room-price">$620</span>
-                    </div>
-                  </div>
-                  <div class="mockup-hotel-bar">
-                    Book Villa
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="portfolio-overlay">
-              <span class="portfolio-view-text">View Case Study &rarr;</span>
-            </div>
-          </div>
-          <div class="portfolio-meta">
-            <span class="portfolio-cat">Hotel Website &amp; Booking Engine</span>
-            <h3 class="portfolio-name">Aura Resort & Spa</h3>
-          </div>
-        </div>
-
-        <!-- Project 3 (Side by Side) -->
-        <div class="portfolio-item" onclick="openModal('Le Sel Bistro Dinner Interface')">
-          <div class="portfolio-visual">
-            <div class="portfolio-placeholder project-3-bg">
-              <div class="mockup-frame">
-                <div class="mockup-header">
-                  <span class="mockup-dot"></span>
-                  <span class="mockup-dot"></span>
-                  <span class="mockup-dot"></span>
-                  <span class="mockup-search"></span>
-                </div>
-                <div class="mockup-body">
-                  <span class="mockup-rest-title">Le Sel Bistro</span>
-                  <div class="mockup-rest-menu">
-                    <div class="mockup-menu-item">
-                      <span class="mockup-menu-name">Homard Bleu</span>
-                      <span class="mockup-menu-price">$68</span>
-                    </div>
-                    <div class="mockup-menu-item">
-                      <span class="mockup-menu-name">Turbot Grill&eacute;</span>
-                      <span class="mockup-menu-price">$54</span>
-                    </div>
-                    <div class="mockup-menu-item">
-                      <span class="mockup-menu-name">Chevreuil Sauvage</span>
-                      <span class="mockup-menu-price">$48</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="portfolio-overlay">
-              <span class="portfolio-view-text">View Case Study &rarr;</span>
-            </div>
-          </div>
-          <div class="portfolio-meta">
-            <span class="portfolio-cat">Restaurant reservation UI</span>
-            <h3 class="portfolio-name">Le Sel Bistro</h3>
-          </div>
-        </div>
-
-        <!-- Project 4 (Full Width) -->
-        <div class="portfolio-item full-width" onclick="openModal('Nova Athletics headless commerce')">
-          <div class="portfolio-visual">
-            <div class="portfolio-placeholder project-4-bg">
-              <div class="mockup-frame">
-                <div class="mockup-header">
-                  <span class="mockup-dot"></span>
-                  <span class="mockup-dot"></span>
-                  <span class="mockup-dot"></span>
-                  <span class="mockup-search"></span>
-                </div>
-                <div class="mockup-body">
-                  <div class="mockup-shop-header">
-                    <span class="mockup-shop-logo">Nova Atletica</span>
-                    <span class="mockup-shop-bag"></span>
-                  </div>
-                  
-                  <div class="mockup-shop-product-box">
-                    <span class="mockup-shop-prod-title">Aero-Stitch Hoodie 01</span>
-                    <span class="mockup-shop-prod-price">$135.00</span>
-                    
-                    <div class="mockup-shop-sizes">
-                      <span>S</span>
-                      <span class="active">M</span>
-                      <span>L</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="portfolio-overlay">
-              <span class="portfolio-view-text">View Case Study &rarr;</span>
-            </div>
-          </div>
-          <div class="portfolio-meta">
-            <span class="portfolio-cat">Headless Commerce Platform</span>
-            <h3 class="portfolio-name">Nova Athletics</h3>
-          </div>
-        </div>
-
+      <div class="work-section-footer">
+        <hr class="footer-hr">
+        <p class="footer-note">Every project is custom-built. Every client is a collaboration.</p>
+        <a href="#" class="footer-start-link open-modal-btn">Start Your Project &rarr;</a>
       </div>
 
     </div>
@@ -2350,6 +2499,41 @@
 
     animatedElements.forEach(element => {
       scrollObserver.observe(element);
+    });
+
+    // -------------------------------------------------------------
+    // SELECTED WORK SCROLL ANIMATION (Staggered reveal)
+    // -------------------------------------------------------------
+    const revealWorkElements = document.querySelectorAll('.reveal-work');
+    
+    const workObserverOptions = {
+      root: null,
+      threshold: 0.05,
+      rootMargin: "0px 0px -40px 0px"
+    };
+
+    const workObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          if (el.classList.contains('section-header')) {
+            el.classList.add('visible');
+          } else {
+            // For cards, apply stagger delay based on index within the grid
+            const cards = Array.from(document.querySelectorAll('.work-grid .work-card, .work-grid .coming-soon-card'));
+            const idx = cards.indexOf(el);
+            if (idx !== -1) {
+              el.style.transitionDelay = `${idx * 0.08}s`;
+            }
+            el.classList.add('visible');
+          }
+          observer.unobserve(el);
+        }
+      });
+    }, workObserverOptions);
+
+    revealWorkElements.forEach(el => {
+      workObserver.observe(el);
     });
 
     // -------------------------------------------------------------

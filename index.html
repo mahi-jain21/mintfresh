@@ -141,6 +141,9 @@
     }
 
     @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
       section {
         padding: 80px 0;
       }
@@ -187,7 +190,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 1000;
+      z-index: 1010;
       background: transparent;
       padding: 40px 0;
       transition: var(--transition-standard);
@@ -2286,13 +2289,15 @@
     // NAVIGATION SCROLL EFFECT
     // -------------------------------------------------------------
     const header = document.querySelector('header');
-    window.addEventListener('scroll', () => {
+    function handleScroll() {
       if (window.scrollY > 20) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
       }
-    });
+    }
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
 
     // -------------------------------------------------------------
     // MOBILE NAVIGATION DRAWER
@@ -2356,6 +2361,10 @@
     const detailsTextarea = document.getElementById('form-details');
 
     function openModal(projectName = '') {
+      // If mobile nav is open, close it
+      if (mobileNavDrawer && mobileNavDrawer.classList.contains('active')) {
+        toggleMobileNav();
+      }
       contactModal.classList.add('active');
       contactModal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('no-scroll');
@@ -2375,8 +2384,9 @@
 
     openModalButtons.forEach(btn => {
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
-        const projName = e.target.getAttribute('data-project') || '';
+        const projName = e.currentTarget.getAttribute('data-project') || '';
         openModal(projName);
       });
     });
